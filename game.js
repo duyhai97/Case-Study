@@ -1,22 +1,23 @@
+
 class game{
     constructor() {
         this.canvas = null;
         this.context = null;
         this.init();
         this.startGame();
-        // this.pauseGame()
-        // this.score()
+        this.pauseG = false;
+        this.pauseGame();
     }
     init(){
-        this.canvas = document.createElement("canvas"); //tao khung canvas
+        this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext('2d');
         this.canvas.width = 400;
         this.canvas.height = 400;
         document.body.appendChild(this.canvas);
     }
 
-    //vong lap game
     loop(){
+        if (this.pauseG === true) return;
         this.update();
         this.draw();
         setTimeout(() => this.loop(), 100)
@@ -42,16 +43,13 @@ class game{
             this.loop();
         });
     }
-    
-    // pauseGame(){
-    //     document.getElementById("pause").addEventListener('click', () => {
-    //
-    //         this.loop();
-    //     })
-    // }
 
-
-
+    pauseGame() {
+        document.getElementById("pause").addEventListener('click', () => {
+            this.pauseG = !this.pauseG;
+            this.loop();
+        });
+    }
 }
 let g = new game()
 
